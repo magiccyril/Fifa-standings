@@ -3,3 +3,9 @@ DivonaStandingsBundle_homepage:
     defaults: { _controller: DivonaStandingsBundle:Page:index }
     requirements:
         _method:  GET
+
+DivonaStandingsBundle_about:
+    pattern:  /about
+    defaults: { _controller: DivonaStandingsBundle:Page:about }
+    requirements:
+        _method:  GET
