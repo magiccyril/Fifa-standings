@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div id="content" class="span12">
+        {% block content %}
+            <h2>Main content</h2>
+        {% endblock %}
+    </div>
+    <div id="sidebar" class="span4">
+        {% block sidebar %}
+            <h3>Secondary content</h3>
+        {% endblock %}
+    </div>
+{% endblock %}
