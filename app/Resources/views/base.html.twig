@@ -1,13 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <meta charset="utf-8">
+        <title>{% block html_title %}Standings{% endblock %}</title>
+
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        {% block stylesheets %}
+            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/screen.css') }}" rel="stylesheet">
+        {% endblock %}
+
+        <!-- fav and touch icons -->
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('apple-touch-icon-72x72.png') }}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('apple-touch-icon-114x114.png') }}">
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <a class="brand" href="#">Divona Standings</a>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <form action="" class="pull-right">
+                        <input class="input-small" type="text" placeholder="Username">
+                        <input class="input-small" type="password" placeholder="Password">
+                        <button class="btn" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="content">
+                <div id="page-header">
+                    {% block page_header %}
+                        <h1>Page name <small>Supporting text or tagline</small></h1>
+                    {% endblock %}
+                </div>
+                <div class="row">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+
+            <footer>
+                {% block footer %}
+                {% endblock %}
+            </footer>
+
+        </div>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
