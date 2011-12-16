@@ -1,0 +1,3 @@
+parameters:
+    # Standings contact email address
+    divona_standings.emails.contact_email: contact@18ruedivona.eu

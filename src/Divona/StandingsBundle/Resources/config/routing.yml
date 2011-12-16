@@ -9,3 +9,9 @@ DivonaStandingsBundle_about:
     defaults: { _controller: DivonaStandingsBundle:Page:about }
     requirements:
         _method:  GET
+
+DivonaStandingsBundle_contact:
+    pattern:  /contact
+    defaults: { _controller: DivonaStandingsBundle:Page:contact }
+    requirements:
+        _method:  GET|POST
