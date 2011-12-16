@@ -31,11 +31,17 @@
                         <li><a href="{{ path('DivonaStandingsBundle_about') }}">About</a></li>
                         <li><a href="{{ path('DivonaStandingsBundle_contact') }}">Contact</a></li>
                     </ul>
-                    <form action="" class="pull-right">
-                        <input class="input-small" type="text" placeholder="Username">
-                        <input class="input-small" type="password" placeholder="Password">
-                        <button class="btn" type="submit">Sign in</button>
-                    </form>
+                    <div class="pull-right">
+                        <ul>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li>{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</li>
+                                <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                            {% else %}
+                                <li><a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                                <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

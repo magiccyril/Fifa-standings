@@ -14,6 +14,12 @@
 {% endspaceless %}
 {% endblock field_row %}
 
+{% block field_label %}
+{% spaceless %}
+    <label for="{{ id }}">{{ id|trans([], 'FOSUserBundle') }}</label>
+{% endspaceless %}
+{% endblock field_label %}
+
 {% block field_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
