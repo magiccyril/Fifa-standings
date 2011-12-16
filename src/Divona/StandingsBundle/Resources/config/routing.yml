@@ -1,0 +1,5 @@
+DivonaStandingsBundle_homepage:
+    pattern:  /
+    defaults: { _controller: DivonaStandingsBundle:Page:index }
+    requirements:
+        _method:  GET
