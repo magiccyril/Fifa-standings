@@ -18,13 +18,13 @@ class Game
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Divona\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="player1_id", referencedColumnName="id")
      */
     protected $player1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Divona\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="player2_id", referencedColumnName="id")
      */
     protected $player2;
@@ -55,7 +55,7 @@ class Game
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -75,7 +75,7 @@ class Game
     /**
      * Get score_player1
      *
-     * @return integer
+     * @return integer 
      */
     public function getScorePlayer1()
     {
@@ -95,7 +95,7 @@ class Game
     /**
      * Get score_player2
      *
-     * @return integer
+     * @return integer 
      */
     public function getScorePlayer2()
     {
@@ -115,7 +115,7 @@ class Game
     /**
      * Get created_at
      *
-     * @return datetime
+     * @return datetime 
      */
     public function getCreatedAt()
     {
@@ -125,9 +125,9 @@ class Game
     /**
      * Set player1
      *
-     * @param Divona\StandingsBundle\Entity\User $player1
+     * @param Divona\UserBundle\Entity\User $player1
      */
-    public function setPlayer1(\Divona\StandingsBundle\Entity\User $player1)
+    public function setPlayer1(\Divona\UserBundle\Entity\User $player1)
     {
         $this->player1 = $player1;
     }
@@ -135,7 +135,7 @@ class Game
     /**
      * Get player1
      *
-     * @return Divona\StandingsBundle\Entity\User
+     * @return Divona\UserBundle\Entity\User 
      */
     public function getPlayer1()
     {
@@ -145,9 +145,9 @@ class Game
     /**
      * Set player2
      *
-     * @param Divona\StandingsBundle\Entity\User $player2
+     * @param Divona\UserBundle\Entity\User $player2
      */
-    public function setPlayer2(\Divona\StandingsBundle\Entity\User $player2)
+    public function setPlayer2(\Divona\UserBundle\Entity\User $player2)
     {
         $this->player2 = $player2;
     }
@@ -155,7 +155,7 @@ class Game
     /**
      * Get player2
      *
-     * @return Divona\StandingsBundle\Entity\User
+     * @return Divona\UserBundle\Entity\User 
      */
     public function getPlayer2()
     {
