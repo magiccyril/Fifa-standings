@@ -1,8 +1,17 @@
 {% form_theme form theme %}
 
 <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.user.username) }}
+    {{ form_row(form.user.email) }}
+    {{ form_row(form.current) }}
+
+    {{ form_rest(form) }}
+
+    <div class="actions">
+        <input type="submit" class="btn primary" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}">
+        <input type="submit" class="btn danger" value="{{ 'profile.edit.delete'|trans({}, 'FOSUserBundle') }}">
     </div>
 </form>
