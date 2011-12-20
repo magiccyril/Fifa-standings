@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
     - { resource: @DivonaStandingsBundle/Resources/config/config.yml }
+    - { resource: @DivonaUserBundle/Resources/config/config.yml }
 
 framework:
     #esi:             ~
@@ -59,8 +60,3 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
-
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: Divona\StandingsBundle\Entity\User
