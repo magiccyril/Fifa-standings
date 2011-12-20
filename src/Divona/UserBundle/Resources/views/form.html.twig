@@ -28,7 +28,7 @@
                 {{ errors[0].messageTemplate|trans(errors[0].messageParameters, 'validators') }}
             {% elseif errors|length > 1 %}
                     {% for error in errors %}
-                        {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}, 
+                        {{ error.messageTemplate|trans(error.messageParameters, 'validators') }},
                     {% endfor %}
             {% endif %}
         </span>

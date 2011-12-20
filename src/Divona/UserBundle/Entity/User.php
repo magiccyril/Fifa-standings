@@ -1,5 +1,5 @@
 <?php
-namespace Divona\StandingsBundle\Entity;
+namespace Divona\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
