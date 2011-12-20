@@ -15,3 +15,10 @@ DivonaStandingsBundle_contact:
     defaults: { _controller: DivonaStandingsBundle:Page:contact }
     requirements:
         _method:  GET|POST
+
+DivonaStandingsBundle_standings_show:
+    pattern:  /standings
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "month" }
+    requirements:
+        _method:  GET
+        id: \d+

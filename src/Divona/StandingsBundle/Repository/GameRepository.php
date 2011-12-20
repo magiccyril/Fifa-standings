@@ -3,6 +3,7 @@
 namespace Divona\StandingsBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * GameRepository
@@ -12,4 +13,143 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
+    public function getGamesForUser($userId)
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->select('g')
+            ->where('g.player1 = :user_id')
+            ->orWhere('g.player2 = :user_id')
+            ->addOrderBy('g.created_at')
+            ->setParameter('user_id', $userId);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function getGames($from_date = null)
+    {
+        if (!$from_date)
+        {
+            $from_date = new \DateTime();
+        }
+        $qb = $this->createQueryBuilder('g')
+            ->select('g')
+            ->where('g.created_at >= :date')
+            ->addOrderBy('g.created_at')
+            ->setParameter('date', $from_date);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function getStanding($display = null)
+    {
+        $from_date = new \DateTime();
+        switch ($display)
+        {
+            case 'day':
+                $from_date->sub( new \DateInterval('P1D'));
+                break;
+            case 'week':
+                $from_date->sub( new \DateInterval('P1W'));
+                break;
+            case 'year':
+                $from_date->sub( new \DateInterval('P1Y'));
+                break;
+            case 'month':
+                $from_date->sub( new \DateInterval('P1M'));
+                break;
+            default:
+                $from_date->setDate(1970, 1, 1);
+                break;
+        }
+
+        // get all games.
+        $games = $this->getGames($from_date);
+
+        // create the standing.
+        $standing = new ArrayCollection();
+        foreach ($games as $i => &$game)
+        {
+            $player1 = $game->getPlayer1();
+            $player2 = $game->getPlayer2();
+
+            if (!$standing->containsKey($player1->getId()))
+            {
+                $standing->set($player1->getId(), array(
+                    'draw' => 0,
+                    'goalaverage' => 0,
+                    'lose' => 0,
+                    'played' => 0,
+                    'player' => $player1,
+                    'points' => 0,
+                    'point_per_games' => 0,
+                    'win' => 0,
+                ));
+            }
+            if (!$standing->containsKey($player2->getId()))
+            {
+                $standing->set($player2->getId(), array(
+                    'draw' => 0,
+                    'goalaverage' => 0,
+                    'lose' => 0,
+                    'played' => 0,
+                    'player' => $player2,
+                    'points' => 0,
+                    'point_per_games' => 0,
+                    'win' => 0,
+                ));
+            }
+
+            $row_player1 = $standing->get($player1->getId());
+            $row_player2 = $standing->get($player2->getId());
+
+            // player 1 win
+            if ($game->getScorePlayer1() > $game->getScorePlayer2())
+            {
+                $row_player1['win']++;
+                $row_player2['lose']++;
+
+                $row_player1['points'] = $row_player1['points'] + 3;
+            }
+            // player 2 win
+            elseif ($game->getScorePlayer2() > $game->getScorePlayer1())
+            {
+                $row_player2['win']++;
+                $row_player1['lose']++;
+
+                $row_player2['points'] = $row_player2['points'] + 3;
+            }
+            // draw
+            else
+            {
+                $row_player1['draw']++;
+                $row_player2['draw']++;
+
+                $row_player1['points'] = $row_player1['points'] + 1;
+                $row_player2['points'] = $row_player2['points'] + 1;
+            }
+
+            // game played.
+            $row_player1['played']++;
+            $row_player2['played']++;
+
+            // goal average.
+            $row_player1['goalaverage'] = $row_player1['goalaverage'] + $game->getScorePlayer1() - $game->getScorePlayer2();
+            $row_player2['goalaverage'] = $row_player2['goalaverage'] + $game->getScorePlayer2() - $game->getScorePlayer1();
+
+            // points per match.
+            $row_player1['point_per_games'] = round(($row_player1['point_per_games'] + $row_player1['points']) / $row_player1['played']);
+            $row_player2['point_per_games'] = round(($row_player2['point_per_games'] + $row_player2['points'] ) / $row_player2['played']);
+
+            $standing->set($player1->getId(), $row_player1);
+            $standing->set($player2->getId(), $row_player2);
+        }
+
+        /*
+         * TODO : sort the standing.
+         */
+
+        return $standing;
+    }
 }
