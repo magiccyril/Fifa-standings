@@ -3,6 +3,9 @@
 namespace Divona\StandingsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\Min;
+use Symfony\Component\Validator\Constraints\True;
 
 /**
  * @ORM\Entity(repositoryClass="Divona\StandingsBundle\Repository\GameRepository")
@@ -55,7 +58,7 @@ class Game
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -75,7 +78,7 @@ class Game
     /**
      * Get score_player1
      *
-     * @return integer 
+     * @return integer
      */
     public function getScorePlayer1()
     {
@@ -95,7 +98,7 @@ class Game
     /**
      * Get score_player2
      *
-     * @return integer 
+     * @return integer
      */
     public function getScorePlayer2()
     {
@@ -115,7 +118,7 @@ class Game
     /**
      * Get created_at
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreatedAt()
     {
@@ -135,7 +138,7 @@ class Game
     /**
      * Get player1
      *
-     * @return Divona\UserBundle\Entity\User 
+     * @return Divona\UserBundle\Entity\User
      */
     public function getPlayer1()
     {
@@ -155,10 +158,35 @@ class Game
     /**
      * Get player2
      *
-     * @return Divona\UserBundle\Entity\User 
+     * @return Divona\UserBundle\Entity\User
      */
     public function getPlayer2()
     {
         return $this->player2;
+    }
+
+    /**
+     * Check that player 1 and player 2 are differents
+     *
+     * @return boolean
+     */
+    public function isPlayersValid()
+    {
+        return ($this->getPlayer1()->getId() != $this->getPlayer2()->getId());
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('score_player1', new Min(array(
+            'limit' => 0,
+            'message' => 'Score must be superior to 0',
+        )));
+        $metadata->addPropertyConstraint('score_player2', new Min(array(
+            'limit' => 0,
+            'message' => 'Score must be superior to 0',
+        )));
+        $metadata->addGetterConstraint('playersValid', new True(array(
+            'message' => 'Players must be different',
+        )));
     }
 }
