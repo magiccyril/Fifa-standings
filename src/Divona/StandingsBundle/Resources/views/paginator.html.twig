@@ -1,0 +1,27 @@
+{% if paginator.numpages > 1 %}
+  <div class="pagination">
+      <ul>
+          {% if paginator.currentpage > 1 %}
+              <li class="prev"><a href="{{ url }}?page={{paginator.currentpage - 1}}">← Previous</a></li>
+          {% else %}
+              <li class="prev disabled"><a>← Previous</a></li>
+          {%endif %}
+          {% for i in paginator.pageRange %}
+              {% if (i != -1) %}
+                  <li class="{% if i==paginator.currentpage %}active{% endif %}">
+                      <a href="{{ url }}?page={{i}}">{{i}}</a>
+                  </li>
+              {% else %}
+                  <li class="disabled">
+                      <a>&hellip;</a>
+                  </li>
+              {% endif %}
+          {% endfor %}
+          {% if paginator.currentpage >= paginator.numpages %}
+              <li class="next disabled"><a>Next →</a></li>
+          {% else %}
+              <li class="next"><a href="{{ url }}?page={{paginator.currentpage + 1}}">Next →</a></li>
+          {%endif %}
+      </ul>
+  </div>
+{%endif %}
