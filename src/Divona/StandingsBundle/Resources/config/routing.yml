@@ -18,7 +18,30 @@ DivonaStandingsBundle_contact:
 
 DivonaStandingsBundle_standings_show:
     pattern:  /standings
+    defaults: { _controller: DivonaStandingsBundle:Standings:show }
+    requirements:
+        _method:  GET
+
+DivonaStandingsBundle_standings_show_week:
+    pattern:  /standings/week
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "week" }
+    requirements:
+        _method:  GET
+
+DivonaStandingsBundle_standings_show_month:
+    pattern:  /standings/month
     defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "month" }
     requirements:
         _method:  GET
-        id: \d+
+
+DivonaStandingsBundle_standings_show_year:
+    pattern:  /standings/year
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "year" }
+    requirements:
+        _method:  GET
+
+DivonaStandingsBundle_standings_show_all:
+    pattern:  /standings/all
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "all" }
+    requirements:
+        _method:  GET
