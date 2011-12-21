@@ -1,0 +1,44 @@
+{% extends 'DivonaStandingsBundle::layout_double.html.twig' %}
+
+{% block page_header %}
+    <h1>Game timeline</h1>
+{% endblock %}
+
+{% block content %}
+    <table class="zebra-striped">
+        <tr>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Player</th>
+            <th>Date</th>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <th>Operations</th>
+            {% endif %}
+        </tr>
+        {% for game in games %}
+            <tr>
+                <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player1.id}) }}">{{game.player1.username}}</a></td>
+                <td>{{game.scorePlayer1}} - {{game.scorePlayer2}}</td>
+                <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player2.id}) }}">{{game.player2.username}}</a></td>
+                <td>{{ game.createdAt|date('d/m/Y') }}</td>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <td><a href="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}">delete</a></td>
+                {% endif %}
+            </tr>
+    {% else %}
+        <tr><td colspan="9">There is no game entries.</td></tr>
+    {% endfor %}
+    </table>
+
+    {% include "DivonaStandingsBundle::paginator.html.twig" with { 'url' : path('DivonaStandingsBundle_standings_list') } %}
+{% endblock %}
+
+{% block sidebar %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <p class="clearfix center">
+            <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">Add game</a>
+        </p>
+    {% endif %}
+
+    {% render "DivonaStandingsBundle:Partial:standing" with { 'granularity': 'month' } %}
+{% endblock %}

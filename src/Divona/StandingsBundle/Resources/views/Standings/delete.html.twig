@@ -1,0 +1,18 @@
+{% extends 'DivonaStandingsBundle::layout_simple.html.twig' %}
+
+{% block page_header %}
+    <h1>Are you sure ?</h1>
+{% endblock %}
+
+{% block content %}
+    <form action="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}" method="post">
+        <p>
+            Are your sure you want to delete match : <em>{{ game.player1.username }} {{ game.scorePlayer1 }} - {{ game.scorePlayer2 }} {{ game.player2.username }}</em> created at {{ game.createdAt|date('d/m/Y') }} ?
+        </p>
+        <p>
+            <input type="submit" class="btn danger" value="Yes">
+            <a href="{{ path('DivonaStandingsBundle_standings_list') }}" class="btn">Cancel</a>
+        </p>
+    </form>
+
+{% endblock %}

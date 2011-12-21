@@ -40,6 +40,19 @@ DivonaStandingsBundle_standings_show_all:
     requirements:
         _method:  GET
 
+DivonaStandingsBundle_standings_list:
+    pattern:  /games
+    defaults: { _controller: DivonaStandingsBundle:Standings:list }
+    requirements:
+        _method:  GET
+
+DivonaStandingsBundle_standings_delete:
+    pattern:  /games/delete/{id}
+    defaults: { _controller: DivonaStandingsBundle:Standings:delete }
+    requirements:
+        _method:  GET|POST
+        id: \d+
+
 DivonaStandingsBundle_standings_add_game:
     pattern:  /standings/add_game
     defaults: { _controller: DivonaStandingsBundle:Standings:addGame }
