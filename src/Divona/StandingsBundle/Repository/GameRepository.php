@@ -14,7 +14,7 @@ use Divona\StandingsBundle\Entity\Standing;
  */
 class GameRepository extends EntityRepository
 {
-    public function getGamesOfUser($userId)
+    public function getGamesOfUser($userId, $limit = 0, $offset = 0)
     {
         $qb = $this->createQueryBuilder('g')
             ->select('g')
@@ -22,6 +22,11 @@ class GameRepository extends EntityRepository
             ->orWhere('g.player2 = :user_id')
             ->addOrderBy('g.created_at', 'desc')
             ->setParameter('user_id', $userId);
+
+        if ($limit > 0) {
+            $qb->setFirstResult($offset);
+            $qb->setMaxResults($limit);
+        }
 
         return $qb->getQuery()
             ->getResult();

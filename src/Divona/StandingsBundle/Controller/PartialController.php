@@ -16,6 +16,20 @@ class PartialController extends Controller
         ));
     }
 
+    public function listUserGamesAction($user_id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $games = $em->getRepository('DivonaStandingsBundle:Game')->getGamesOfUser($user_id);
+
+        $player = $this->container->get('fos_user.user_manager')->findUserBy(array('id' => $user_id));
+
+        return $this->render('DivonaStandingsBundle:Partial:userGames.html.twig', array(
+            'games' => $games,
+            'player' => $player,
+        ));
+    }
+
     public function standingAction($granularity = 'month')
     {
         $em = $this->getDoctrine()->getEntityManager();

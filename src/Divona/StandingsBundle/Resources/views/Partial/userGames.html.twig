@@ -1,0 +1,41 @@
+<h3>{{ player.username }}'s match timeline</h3>
+<table class="zebra-striped">
+    <tr>
+        <th>Player</th>
+        <th>Score</th>
+        <th>Player</th>
+        <th>Date</th>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <th>Operations</th>
+        {% endif %}
+    </tr>
+    {% for game in games %}
+    <tr>
+        <td>
+            <a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player1.id}) }}">
+                {% if (game.player1.id == player.id ) %}
+                    <strong>{{game.player1.username}}</strong>
+                {% else %}
+                    {{game.player1.username}}
+                {% endif %}
+            </a>
+        </td>
+        <td>{{game.scorePlayer1}} - {{game.scorePlayer2}}</td>
+        <td>
+            <a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player2.id}) }}">
+                {% if (game.player2.id == player.id ) %}
+                    <strong>{{game.player2.username}}</strong>
+                {% else %}
+                    {{game.player2.username}}
+                {% endif %}
+            </a>
+        </td>
+        <td>{{ game.createdAt|date('d/m/Y') }}</td>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <td><a href="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}">delete</a></td>
+        {% endif %}
+    </tr>
+    {% else %}
+        <tr><td colspan="9">There is no game entries.</td></tr>
+    {% endfor %}
+</table>
