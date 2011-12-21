@@ -34,7 +34,9 @@ class GameRepository extends EntityRepository
             $from_date = new \DateTime();
         }
         $qb = $this->createQueryBuilder('g')
-            ->select('g')
+            ->select('g, p1, p2')
+            ->leftJoin('g.player1', 'p1')
+            ->leftJoin('g.player2', 'p2')
             ->where('g.created_at >= :date')
             ->addOrderBy('g.created_at')
             ->setParameter('date', $from_date);
