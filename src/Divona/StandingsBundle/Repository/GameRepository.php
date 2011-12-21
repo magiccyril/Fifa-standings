@@ -14,35 +14,37 @@ use Divona\StandingsBundle\Entity\Standing;
  */
 class GameRepository extends EntityRepository
 {
-    public function getGamesForUser($userId)
+    public function getGamesOfUser($userId)
     {
         $qb = $this->createQueryBuilder('g')
             ->select('g')
             ->where('g.player1 = :user_id')
             ->orWhere('g.player2 = :user_id')
-            ->addOrderBy('g.created_at')
+            ->addOrderBy('g.created_at', 'desc')
             ->setParameter('user_id', $userId);
 
         return $qb->getQuery()
             ->getResult();
     }
 
-    public function getGames($from_date = null)
+    public function getGames($from_date = null, $limit = 0)
     {
-        if (!$from_date)
-        {
-            $from_date = new \DateTime();
-        }
         $qb = $this->createQueryBuilder('g')
             ->select('g, p1, p2')
             ->leftJoin('g.player1', 'p1')
             ->leftJoin('g.player2', 'p2')
-            ->where('g.created_at >= :date')
-            ->addOrderBy('g.created_at')
-            ->setParameter('date', $from_date);
+            ->addOrderBy('g.created_at', 'desc');
 
-        return $qb->getQuery()
-            ->getResult();
+        if ($from_date) {
+            $qb->where('g.created_at >= :date');
+            $qb->setParameter('date', $from_date);
+        }
+
+        if ($limit > 0) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     public function getStanding($display = null)
