@@ -1,7 +1,9 @@
 <div class="fos_user_user_show">
     <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.id == user.id %}
     <p class="well">
-        <a href="{{ path('fos_user_profile_edit') }}" class="btn large primary">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</a>
+        <a href="{{ path('fos_user_profile_edit') }}" class="btn primary">{{ 'profile.show.edit'|trans({}, 'FOSUserBundle') }}</a>
     </p>
+{% endif %}
 </div>

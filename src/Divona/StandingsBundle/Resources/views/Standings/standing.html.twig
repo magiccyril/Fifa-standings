@@ -37,7 +37,7 @@
         {% for row in standing.standing %}
             <tr>
                 <td>{{row.position}}</td>
-                <td>{{row.player.username}}</td>
+                <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': row.player.id}) }}">{{row.player.username}}</a></td>
                 <td>{{row.played}}</td>
                 <td>{{row.win}}</td>
                 <td>{{row.draw}}</td>

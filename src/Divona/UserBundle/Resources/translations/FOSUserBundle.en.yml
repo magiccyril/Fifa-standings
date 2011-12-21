@@ -24,6 +24,7 @@ profile:
     show:
         username: Username
         email: Email
+        edit: Update profile
     edit:
         submit: Update
         delete: Delete
