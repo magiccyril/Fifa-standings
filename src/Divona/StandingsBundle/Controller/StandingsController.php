@@ -7,15 +7,15 @@ use Divona\StandingsBundle\Form\GameType;
 
 class StandingsController extends Controller
 {
-    public function showAction($display = false)
+    public function showAction($granularity = false)
     {
-        if (!$display)
+        if (!$granularity)
         {
             return $this->redirect($this->generateUrl('DivonaStandingsBundle_standings_show_month'));
         }
 
         $em = $this->getDoctrine()->getEntityManager();
-        $standing = $em->getRepository('DivonaStandingsBundle:Game')->getStanding($display);
+        $standing = $em->getRepository('DivonaStandingsBundle:Game')->getStanding($granularity);
 
         if (!$standing) {
             throw $this->createNotFoundException('Unable to generate this standing.');

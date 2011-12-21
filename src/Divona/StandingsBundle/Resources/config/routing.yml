@@ -18,25 +18,25 @@ DivonaStandingsBundle_standings_show:
 
 DivonaStandingsBundle_standings_show_week:
     pattern:  /standings/week
-    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "week" }
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, granularity: "week" }
     requirements:
         _method:  GET
 
 DivonaStandingsBundle_standings_show_month:
     pattern:  /standings/month
-    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "month" }
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, granularity: "month" }
     requirements:
         _method:  GET
 
 DivonaStandingsBundle_standings_show_year:
     pattern:  /standings/year
-    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "year" }
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, granularity: "year" }
     requirements:
         _method:  GET
 
 DivonaStandingsBundle_standings_show_all:
     pattern:  /standings/all
-    defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "all" }
+    defaults: { _controller: DivonaStandingsBundle:Standings:show, granularity: "all" }
     requirements:
         _method:  GET
 
