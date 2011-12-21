@@ -12,7 +12,13 @@
     </div>
     <div id="sidebar" class="span4">
         {% block sidebar %}
-            <h3>Secondary content</h3>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <p class="clearfix center">
+                    <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">Add game</a>
+                </p>
+            {% endif %}
+            {% render "DivonaStandingsBundle:Partial:standing" with { 'granularity': 'month' } %}
+            {% render "DivonaStandingsBundle:Partial:latestGames" with { 'limit': 5 } %}
         {% endblock %}
     </div>
 {% endblock %}

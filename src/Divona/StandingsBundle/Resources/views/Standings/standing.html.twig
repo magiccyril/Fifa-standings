@@ -60,4 +60,6 @@
             <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">Add game</a>
         </p>
     {% endif %}
+
+    {% render "DivonaStandingsBundle:Partial:latestGames" with { 'limit': 5 } %}
 {% endblock %}

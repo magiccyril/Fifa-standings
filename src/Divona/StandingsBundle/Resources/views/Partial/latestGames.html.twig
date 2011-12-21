@@ -1,0 +1,21 @@
+<section>
+    <h3>Latest games</h3>
+    <table>
+        <tr>
+            <th>Player 1</th>
+            <th>Player 2</th>
+            <th>Score</th>
+        </tr>
+        {% for game in latestGames %}
+            <tr>
+                <td>{{ game.player1.username }}</td>
+                <td>{{ game.player2.username }}</td>
+                <td>{{ game.scorePlayer1 }} - {{ game.scorePlayer2 }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">There is no recent games</td>
+            </tr>
+        {% endfor %}
+    </table>
+</section>

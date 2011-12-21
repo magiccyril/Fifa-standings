@@ -1,0 +1,22 @@
+<section>
+    <h3>Standing <small>({{ granularity }})</small></h3>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Player</th>
+            <th><abbr title="Points per Game">PPG</abbr></th>
+        </tr>
+        {% for row in standing.standing %}
+            <tr>
+                <td>{{row.position}}</td>
+                <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': row.player.id}) }}">{{row.player.username}}</a></td>
+                <td>{{row.point_per_games}}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">There is no games recorded.</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p class="center"><a href="{{ path('DivonaStandingsBundle_standings_show' ) }}">See full standing</a></p>
+</section>
