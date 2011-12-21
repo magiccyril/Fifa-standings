@@ -4,6 +4,7 @@ namespace Divona\StandingsBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Divona\StandingsBundle\Entity\Standing;
 
 /**
  * GameRepository
@@ -68,87 +69,42 @@ class GameRepository extends EntityRepository
         $games = $this->getGames($from_date);
 
         // create the standing.
-        $standing = new ArrayCollection();
+        $standing = new Standing();
         foreach ($games as $i => &$game)
         {
             $player1 = $game->getPlayer1();
             $player2 = $game->getPlayer2();
 
-            if (!$standing->containsKey($player1->getId()))
-            {
-                $standing->set($player1->getId(), array(
-                    'draw' => 0,
-                    'goalaverage' => 0,
-                    'lose' => 0,
-                    'played' => 0,
-                    'player' => $player1,
-                    'points' => 0,
-                    'point_per_games' => 0,
-                    'win' => 0,
-                ));
-            }
-            if (!$standing->containsKey($player2->getId()))
-            {
-                $standing->set($player2->getId(), array(
-                    'draw' => 0,
-                    'goalaverage' => 0,
-                    'lose' => 0,
-                    'played' => 0,
-                    'player' => $player2,
-                    'points' => 0,
-                    'point_per_games' => 0,
-                    'win' => 0,
-                ));
-            }
-
-            $row_player1 = $standing->get($player1->getId());
-            $row_player2 = $standing->get($player2->getId());
+            $standing->addPlayer($player1);
+            $standing->addPlayer($player2);
 
             // player 1 win
             if ($game->getScorePlayer1() > $game->getScorePlayer2())
             {
-                $row_player1['win']++;
-                $row_player2['lose']++;
-
-                $row_player1['points'] = $row_player1['points'] + 3;
+                $standing->addPlayerGame($player1, Standing::STANDING_GAME_WIN);
+                $standing->addPlayerGame($player2, Standing::STANDING_GAME_LOST);
             }
             // player 2 win
             elseif ($game->getScorePlayer2() > $game->getScorePlayer1())
             {
-                $row_player2['win']++;
-                $row_player1['lose']++;
-
-                $row_player2['points'] = $row_player2['points'] + 3;
+                $standing->addPlayerGame($player2, Standing::STANDING_GAME_WIN);
+                $standing->addPlayerGame($player1, Standing::STANDING_GAME_LOST);
             }
             // draw
             else
             {
-                $row_player1['draw']++;
-                $row_player2['draw']++;
-
-                $row_player1['points'] = $row_player1['points'] + 1;
-                $row_player2['points'] = $row_player2['points'] + 1;
+                $standing->addPlayerGame($player1, Standing::STANDING_GAME_DRAW);
+                $standing->addPlayerGame($player2, Standing::STANDING_GAME_DRAW);
             }
 
-            // game played.
-            $row_player1['played']++;
-            $row_player2['played']++;
-
             // goal average.
-            $row_player1['goalaverage'] = $row_player1['goalaverage'] + $game->getScorePlayer1() - $game->getScorePlayer2();
-            $row_player2['goalaverage'] = $row_player2['goalaverage'] + $game->getScorePlayer2() - $game->getScorePlayer1();
-
-            // points per match.
-            $row_player1['point_per_games'] = round(($row_player1['point_per_games'] + $row_player1['points']) / $row_player1['played']);
-            $row_player2['point_per_games'] = round(($row_player2['point_per_games'] + $row_player2['points'] ) / $row_player2['played']);
-
-            $standing->set($player1->getId(), $row_player1);
-            $standing->set($player2->getId(), $row_player2);
+            $goalaverage_player1 = $game->getScorePlayer1() - $game->getScorePlayer2();
+            $standing->addPlayerGaolaverage($player1, $goalaverage_player1);
+            $goalaverage_player2 = $game->getScorePlayer2() - $game->getScorePlayer1();
+            $standing->addPlayerGaolaverage($player2, $goalaverage_player2);
         }
 
-        /*
-         * TODO : sort the standing.
-         */
+        $standing->sort();
 
         return $standing;
     }
