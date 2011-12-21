@@ -27,7 +27,7 @@ class GameRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getGames($from_date = null, $limit = 0)
+    public function getGames($from_date = null, $limit = 0, $offset = 0)
     {
         $qb = $this->createQueryBuilder('g')
             ->select('g, p1, p2')
@@ -41,10 +41,20 @@ class GameRepository extends EntityRepository
         }
 
         if ($limit > 0) {
+            $qb->setFirstResult($offset);
             $qb->setMaxResults($limit);
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function getGamesCount()
+    {
+        $qb = $this->createQueryBuilder('g');
+        //Add Count expression to query
+        $qb->add('select', $qb->expr()->count('g'));
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function getStanding($display = null)
