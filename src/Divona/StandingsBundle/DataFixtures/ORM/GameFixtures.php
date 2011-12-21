@@ -46,6 +46,36 @@ class GameFixtures extends AbstractFixture implements OrderedFixtureInterface
         $game5->setScorePlayer2(1);
         $manager->persist($game5);
 
+        $date6 = new \DateTime();
+        $date6->modify('-1 year');
+        $game6 = new Game();
+        $game6->setPlayer1($manager->merge($this->getReference('user-1')));
+        $game6->setPlayer2($manager->merge($this->getReference('user-2')));
+        $game6->setScorePlayer1(1);
+        $game6->setScorePlayer2(1);
+        $game6->setCreatedAt($date6);
+        $manager->persist($game6);
+
+        $date7 = new \DateTime();
+        $date7->modify('-1 month');
+        $game7 = new Game();
+        $game7->setPlayer1($manager->merge($this->getReference('user-1')));
+        $game7->setPlayer2($manager->merge($this->getReference('user-2')));
+        $game7->setScorePlayer1(1);
+        $game7->setScorePlayer2(2);
+        $game7->setCreatedAt($date7);
+        $manager->persist($game7);
+
+        $date8 = new \DateTime();
+        $date8->modify('-1 week');
+        $game8 = new Game();
+        $game8->setPlayer1($manager->merge($this->getReference('user-1')));
+        $game8->setPlayer2($manager->merge($this->getReference('user-2')));
+        $game8->setScorePlayer1(3);
+        $game8->setScorePlayer2(0);
+        $game8->setCreatedAt($date8);
+        $manager->persist($game8);
+
         $manager->flush();
     }
 
