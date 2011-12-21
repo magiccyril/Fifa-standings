@@ -4,12 +4,6 @@ DivonaStandingsBundle_homepage:
     requirements:
         _method:  GET
 
-DivonaStandingsBundle_about:
-    pattern:  /about
-    defaults: { _controller: DivonaStandingsBundle:Page:about }
-    requirements:
-        _method:  GET
-
 DivonaStandingsBundle_contact:
     pattern:  /contact
     defaults: { _controller: DivonaStandingsBundle:Page:contact }

@@ -38,9 +38,6 @@
                             {% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_all' %}active{% endif %}">
                             <a href="{{ path('DivonaStandingsBundle_standings_show') }}">Standings</a>
                         </li>
-                        <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_about' %}active{% endif %}">
-                            <a href="{{ path('DivonaStandingsBundle_about') }}">About</a>
-                        </li>
                         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_contact' %}active{% endif %}">
                             <a href="{{ path('DivonaStandingsBundle_contact') }}">Contact</a>
                         </li>

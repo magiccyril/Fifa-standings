@@ -12,11 +12,6 @@ class PageController extends Controller
         return $this->render('DivonaStandingsBundle:Page:index.html.twig');
     }
 
-    public function aboutAction()
-    {
-        return $this->render('DivonaStandingsBundle:Page:about.html.twig');
-    }
-
     public function contactAction()
     {
         $enquiry = new Enquiry();
@@ -45,5 +40,5 @@ class PageController extends Controller
             'form' => $form->createView()
         ));
     }
-    
+
 }
