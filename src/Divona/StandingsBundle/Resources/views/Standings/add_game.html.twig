@@ -1,0 +1,27 @@
+{% extends 'DivonaStandingsBundle::layout_double.html.twig' %}
+{% form_theme form 'DivonaStandingsBundle:Form:fields.html.twig' %}
+
+{% block page_header %}
+    <h1>Add game</h1>
+{% endblock %}
+
+{% block content %}
+
+    <form action="{{ path('DivonaStandingsBundle_standings_add_game') }}" method="post" {{ form_enctype(form) }}>
+        <fieldset>
+            {{ form_errors(form) }}
+
+            {{ form_row(form.player1) }}
+            {{ form_row(form.player2) }}
+            {{ form_row(form.score_player1) }}
+            {{ form_row(form.score_player2) }}
+
+            {{ form_rest(form) }}
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Save">
+        </div>
+    </form>
+
+{% endblock %}

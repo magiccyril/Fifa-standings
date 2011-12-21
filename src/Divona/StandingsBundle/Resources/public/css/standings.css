@@ -1,3 +1,7 @@
+.center {
+    text-align: center;
+}
+
 /* Give a quick and non-cross-browser friendly divider */
 #sidebar {
   margin-left: 0;

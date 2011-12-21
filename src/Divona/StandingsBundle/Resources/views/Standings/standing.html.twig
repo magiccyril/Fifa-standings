@@ -53,3 +53,11 @@
     {% endfor %}
     </table>
 {% endblock %}
+
+{% block sidebar %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <p class="clearfix center">
+            <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">Add game</a>
+        </p>
+    {% endif %}
+{% endblock %}

@@ -39,3 +39,9 @@ DivonaStandingsBundle_standings_show_all:
     defaults: { _controller: DivonaStandingsBundle:Standings:show, display: "all" }
     requirements:
         _method:  GET
+
+DivonaStandingsBundle_standings_add_game:
+    pattern:  /standings/add_game
+    defaults: { _controller: DivonaStandingsBundle:Standings:addGame }
+    requirements:
+        _method:  GET|POST
