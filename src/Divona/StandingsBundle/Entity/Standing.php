@@ -11,15 +11,15 @@ class Standing
     /**
      * Win.
      */
-    const STANDING_GAME_WIN = 1;
+    const STANDING_GAME_WIN = 3;
     /**
      * Draw.
      */
-    const STANDING_GAME_DRAW = 0;
+    const STANDING_GAME_DRAW = 1;
     /**
      * Lost.
      */
-    const STANDING_GAME_LOST = -1;
+    const STANDING_GAME_LOST = 0;
 
     protected $standing;
 
@@ -59,7 +59,9 @@ class Standing
         {
             $this->standing->set($player->getid(), array(
                 'draw' => 0,
-                'goalaverage' => 0,
+                'goal_conceded' => 0,
+                'goal_difference' => 0,
+                'goal_scored' => 0,
                 'lost' => 0,
                 'played' => 0,
                 'player' => $player,
@@ -75,58 +77,48 @@ class Standing
      * Add a game for a player in the standing.
      *
      * @param User $player
-     * @param $status
-     *     game status, available status:
-     *         STANDING_GAME_WIN : for a win
-     *         STANDING_GAME_DRAW : for a draw
-     *         STANDING_GAME_LOST : for a lost
-     * @param $goalaverage (optional)
+     * @param $goal_scored
+     * @param $goal_conceded
      */
-    public function addPlayerGame(User $player, $status, $goalaverage = null)
+    public function addPlayerGame(User $player, $goal_scored, $goal_conceded)
     {
-        if ($player_results = $this->standing->get($player->getid()))
-        {
-            $player_results['played']++;
-            switch ($status)
-            {
-                case self::STANDING_GAME_WIN:
-                    $player_results['win']++;
-                    $player_results['points'] += 3;
-                    break;
-                case self::STANDING_GAME_DRAW:
-                    $player_results['draw']++;
-                    $player_results['points'] += 1;
-                    break;
-                case self::STANDING_GAME_LOST:
-                    $player_results['lost']++;
-                    break;
-            }
+        // Get results for this player.
+        $player_results = $this->standing->get($player->getid());
 
-            $player_results['point_per_games'] = round($player_results['points'] / $player_results['played'], 2);
-
-            if (isset($goalaverage))
-            {
-                $this->addPlayerGaolaverage($player, $goalaverage);
-            }
-
-            $this->standing->set($player->getid(), $player_results);
+        // If player not exist, then add it.
+        if (!$player_results) {
+            $this->addPlayer($player);
+            $player_results = $this->standing->get($player->getid());
         }
-    }
 
-    /**
-     * Add goal average for a player.
-     *
-     * @param User $player
-     * @param $goalaverage
-     */
-    public function addPlayerGaolaverage(User $player, $goalaverage)
-    {
-        if ($player_results = $this->standing->get($player->getid()))
+        $player_results['played']++;
+        $player_results['goal_conceded'] += $goal_conceded;
+        $player_results['goal_scored'] += $goal_scored;
+        $player_results['goal_difference'] = $player_results['goal_scored'] - $player_results['goal_conceded'];
+
+        // win
+        if ($goal_scored > $goal_conceded)
         {
-            $player_results['goalaverage'] += $goalaverage;
-
-            $this->standing->set($player->getid(), $player_results);
+            $player_results['win']++;
+            $player_results['points'] += self::STANDING_GAME_WIN;
         }
+        // lost
+        elseif ($goal_conceded > $goal_scored)
+        {
+            $player_results['lost']++;
+            $player_results['points'] += self::STANDING_GAME_LOST;
+        }
+        // draw
+        else {
+            $player_results['draw']++;
+            $player_results['points'] += self::STANDING_GAME_DRAW;
+        }
+
+        // Calculate point per games.
+        $player_results['point_per_games'] = round($player_results['points'] / $player_results['played'], 2);
+
+        // Save the results for this player.
+        $this->standing->set($player->getid(), $player_results);
     }
 
     public function sort()
@@ -134,6 +126,7 @@ class Standing
         $iter = $this->standing->getIterator();
         $iter->uasort(function($a, $b) {
 
+            // first check points per game.
             if ($a['point_per_games'] > $b['point_per_games'])
             {
                 return -1;
@@ -144,14 +137,16 @@ class Standing
             }
             else
             {
-                if ($a['goalaverage'] > $b['goalaverage'])
+                // then goal difference.
+                if ($a['goal_difference'] > $b['goal_difference'])
                 {
                     return -1;
                 }
-                elseif ($b['goalaverage'] > $a['goalaverage'])
+                elseif ($b['goal_difference'] > $a['goal_difference'])
                 {
                     return 1;
                 }
+                // then points.
                 else {
                     if ($a['points'] > $b['points'])
                     {

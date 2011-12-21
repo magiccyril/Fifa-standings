@@ -71,40 +71,13 @@ class GameRepository extends EntityRepository
 
         // create the standing.
         $standing = new Standing();
+        // add games.
         foreach ($games as $i => &$game)
         {
-            $player1 = $game->getPlayer1();
-            $player2 = $game->getPlayer2();
-
-            $standing->addPlayer($player1);
-            $standing->addPlayer($player2);
-
-            // player 1 win
-            if ($game->getScorePlayer1() > $game->getScorePlayer2())
-            {
-                $standing->addPlayerGame($player1, Standing::STANDING_GAME_WIN);
-                $standing->addPlayerGame($player2, Standing::STANDING_GAME_LOST);
-            }
-            // player 2 win
-            elseif ($game->getScorePlayer2() > $game->getScorePlayer1())
-            {
-                $standing->addPlayerGame($player2, Standing::STANDING_GAME_WIN);
-                $standing->addPlayerGame($player1, Standing::STANDING_GAME_LOST);
-            }
-            // draw
-            else
-            {
-                $standing->addPlayerGame($player1, Standing::STANDING_GAME_DRAW);
-                $standing->addPlayerGame($player2, Standing::STANDING_GAME_DRAW);
-            }
-
-            // goal average.
-            $goalaverage_player1 = $game->getScorePlayer1() - $game->getScorePlayer2();
-            $standing->addPlayerGaolaverage($player1, $goalaverage_player1);
-            $goalaverage_player2 = $game->getScorePlayer2() - $game->getScorePlayer1();
-            $standing->addPlayerGaolaverage($player2, $goalaverage_player2);
+            $standing->addPlayerGame($game->getPlayer1(), $game->getScorePlayer1(), $game->getScorePlayer2());
+            $standing->addPlayerGame($game->getPlayer2(), $game->getScorePlayer2(), $game->getScorePlayer1());
         }
-
+        // sort the standing.
         $standing->sort();
 
         return $standing;

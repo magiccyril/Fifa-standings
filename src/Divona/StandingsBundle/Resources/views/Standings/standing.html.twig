@@ -24,28 +24,32 @@
         <tr>
             <th>#</th>
             <th>Username</th>
-            <th>Played</th>
-            <th>Wins</th>
-            <th>Draws</th>
-            <th>Losses</th>
-            <th>Goal average</th>
-            <th>Points</th>
-            <th>Points per game</ht>
+            <th><abbr title="Played">P</abbr></th>
+            <th><abbr title="Wins">W</abbr></th>
+            <th><abbr title="Draws">D</abbr></th>
+            <th><abbr title="Losses">L</abbr></th>
+            <th><abbr title="Goal scored">GS</abbr></th>
+            <th><abbr title="Goal conceded">GC</abbr></th>
+            <th><abbr title="Goal difference">GD</abbr></th>
+            <th><abbr title="Points">PTS</abbr></th>
+            <th><abbr title="Points per game">PPG</abbr></ht>
         </tr>
         {% for row in standing.standing %}
             <tr>
-                <td>{{ row.position }}</td>
+                <td>{{row.position}}</td>
                 <td>{{row.player.username}}</td>
                 <td>{{row.played}}</td>
                 <td>{{row.win}}</td>
                 <td>{{row.draw}}</td>
                 <td>{{row.lost}}</td>
-                <td>{{row.goalaverage}}</td>
+                <td>{{row.goal_scored}}</td>
+                <td>{{row.goal_conceded}}</td>
+                <td>{{row.goal_difference}}</td>
                 <td>{{row.points}}</td>
                 <td>{{row.point_per_games}}</td>
             </tr>
     {% else %}
-        <tr><td colspan="9">There is no games entries.</td></tr>
+        <tr><td colspan="9">There is no game entries.</td></tr>
     {% endfor %}
     </table>
 {% endblock %}
