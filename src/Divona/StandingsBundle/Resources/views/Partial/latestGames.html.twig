@@ -3,14 +3,14 @@
     <table>
         <tr>
             <th>Player 1</th>
-            <th>Player 2</th>
             <th>Score</th>
+            <th>Player 2</th>
         </tr>
         {% for game in latestGames %}
             <tr>
-                <td>{{ game.player1.username }}</td>
-                <td>{{ game.player2.username }}</td>
+                <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player1.id}) }}">{{ game.player1.username }}</a></td>
                 <td>{{ game.scorePlayer1 }} - {{ game.scorePlayer2 }}</td>
+                <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player2.id}) }}">{{ game.player2.username }}</a></td>
             </tr>
         {% else %}
             <tr>
