@@ -60,6 +60,7 @@ class GameRepository extends EntityRepository
             case 'month':
                 $from_date->sub( new \DateInterval('P1M'));
                 break;
+            case 'all':
             default:
                 $from_date->setDate(1970, 1, 1);
                 break;
