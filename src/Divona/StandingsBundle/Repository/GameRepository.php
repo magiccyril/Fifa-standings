@@ -62,22 +62,22 @@ class GameRepository extends EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getStanding($display = null)
+    public function getStanding($granularity = null)
     {
         $from_date = new \DateTime();
-        switch ($display)
+        switch ($granularity)
         {
             case 'day':
-                $from_date->sub( new \DateInterval('P1D'));
+                $from_date->sub(new \DateInterval('P1D'));
                 break;
             case 'week':
-                $from_date->sub( new \DateInterval('P1W'));
+                $from_date->sub(new \DateInterval('P1W'));
                 break;
             case 'year':
-                $from_date->sub( new \DateInterval('P1Y'));
+                $from_date->sub(new \DateInterval('P1Y'));
                 break;
             case 'month':
-                $from_date->sub( new \DateInterval('P1M'));
+                $from_date->sub(new \DateInterval('P1M'));
                 break;
             case 'all':
             default:
