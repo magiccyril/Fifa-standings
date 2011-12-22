@@ -171,4 +171,24 @@ class Standing
             $i++;
         }
     }
+
+    /**
+     * Get a row from the standing.
+     *
+     * @param $index
+     * @return a standing row (array)
+     */
+    public function get($index = 0)
+    {
+        if ($index < 0) {
+            $index = 0;
+        }
+
+        if ($index > $this->standing->count()) {
+            $index = $this->standing->count() - 1;
+        }
+
+        $values = $this->standing->getValues();
+        return $values[$index];
+    }
 }
