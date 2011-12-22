@@ -2,12 +2,11 @@
 
 {% block content %}
     {% for key, message in app.session.getFlashes() %}
-        <div class="{{ key }}">
-            {{ message|trans({}, 'FOSUserBundle') }}
+        <div class="alert-message {{ key }} ">
+            <p>{{ message|trans({}, 'FOSUserBundle') }}</p>
         </div>
     {% endfor %}
 
     {% block fos_user_content %}
     {% endblock fos_user_content %}
 {% endblock %}
-
