@@ -25,10 +25,18 @@
         <div class="topbar">
             <div class="fill">
                 <div class="container">
-                    <a class="brand" href="{{ path('DivonaStandingsBundle_homepage') }}">Divona Standings</a>
+                    <a class="brand" href="{{ path('DivonaStandingsBundle_homepage') }}">
+                        {% trans %}
+                            site.title
+                        {% endtrans %}
+                    </a>
                     <ul class="nav">
                         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_homepage' %}active{% endif %}">
-                            <a href="{{ path('DivonaStandingsBundle_homepage') }}">Home</a>
+                            <a href="{{ path('DivonaStandingsBundle_homepage') }}">
+                                {% trans %}
+                                    site.nav.home
+                                {% endtrans %}
+                            </a>
                         </li>
                         <li class="
                             {% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show' %}active{% endif %}
@@ -36,13 +44,25 @@
                             {% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_month' %}active{% endif %}
                             {% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_year' %}active{% endif %}
                             {% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_all' %}active{% endif %}">
-                            <a href="{{ path('DivonaStandingsBundle_standings_show') }}">Standings</a>
+                            <a href="{{ path('DivonaStandingsBundle_standings_show') }}">
+                                {% trans %}
+                                    site.nav.standings
+                                {% endtrans %}
+                            </a>
                         </li>
                         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_list' %}active{% endif %}">
-                            <a href="{{ path('DivonaStandingsBundle_standings_list') }}">Match timeline</a>
+                            <a href="{{ path('DivonaStandingsBundle_standings_list') }}">
+                                {% trans %}
+                                    site.nav.gamelist
+                                {% endtrans %}
+                            </a>
                         </li>
                         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_contact' %}active{% endif %}">
-                            <a href="{{ path('DivonaStandingsBundle_contact') }}">Contact</a>
+                            <a href="{{ path('DivonaStandingsBundle_contact') }}">
+                                {% trans %}
+                                    site.nav.contact
+                                {% endtrans %}
+                            </a>
                         </li>
                     </ul>
                     <div class="pull-right">

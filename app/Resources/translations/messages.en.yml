@@ -1,0 +1,7 @@
+site:
+    title: Standings
+    nav:
+        home: Home
+        standings: Standings
+        gamelist: Games Timeline
+        contact: Contact
