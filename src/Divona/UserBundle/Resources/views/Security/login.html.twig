@@ -1,7 +1,11 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block page_header %}
-    <h1>Login</h1>
+    <h1>
+        {% trans from "DivonaUserBundle" %}
+            security.login.title
+        {% endtrans %}
+    </h1>
 {% endblock %}
 
 {% block fos_user_content %}
@@ -36,7 +40,7 @@
 
             <div class="actions">
                 <input type="submit" class="btn primary" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}">
-                <a href="{{ path('fos_user_resetting_request') }}">Forget password</a>
+                <a href="{{ path('fos_user_resetting_request') }}">{{ 'security.login.forgotpassword'|trans({}, 'DivonaUserBundle') }}</a>
             </div>
     </form>
 {% endblock fos_user_content %}

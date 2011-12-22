@@ -1,1 +1,9 @@
-changepassword.title: Change password
+changepassword.title: "Change password"
+profile:
+    edit.title: "Edit profile"
+    show.title: "%username%'s profile"
+registration.register.title: "Registration"
+resetting.reset.title: "Reset password"
+security.login:
+    title: "Login"
+    forgotpassword: "Forgot password?"
