@@ -2,6 +2,7 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.id == user.id %}
     <p class="well">
         <a href="{{ path('fos_user_profile_edit') }}" class="btn primary">{{ 'profile.show.edit'|trans({}, 'FOSUserBundle') }}</a>
+        <a href="{{ path('fos_user_change_password') }}" class="btn">{{ 'change_password.button'|trans({}, 'FOSUserBundle') }}</a>
     </p>
     {% endif %}
 

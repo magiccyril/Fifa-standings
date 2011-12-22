@@ -34,6 +34,7 @@ profile:
 # Password change
 change_password:
     submit: Modifier le mot de passe
+    button: Modifier le mot de passe
     flash:
         success: Le mot de passe a été modifié
 
