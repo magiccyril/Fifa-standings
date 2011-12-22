@@ -42,4 +42,25 @@ class PartialController extends Controller
             ));
         }
     }
+
+    public function bestPlayerAction($granularity = null)
+    {
+        if (($granularity != 'day'
+            && $granularity != 'week'
+            && $granularity != 'month'
+            && $granularity != 'year'
+            && $granularity != 'all')
+            || is_null($granularity)) {
+                $granularity = 'month';
+            }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $best = $em->getRepository('DivonaStandingsBundle:Game')->getBestPlayer($granularity);
+        $player = $best['player'];
+
+        return $this->render('DivonaStandingsBundle:Partial:bestPlayer.html.twig', array(
+            'granularity' => $granularity,
+            'player' => $player,
+        ));
+    }
 }

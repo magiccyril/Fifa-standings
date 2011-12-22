@@ -101,4 +101,10 @@ class GameRepository extends EntityRepository
 
         return $standing;
     }
+
+    public function getBestPlayer($granularity = null)
+    {
+        $standing = $this->getStanding($granularity);
+        return $standing->get(0);
+    }
 }
