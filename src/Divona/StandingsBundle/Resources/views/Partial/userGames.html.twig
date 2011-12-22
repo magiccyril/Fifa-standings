@@ -1,12 +1,36 @@
-<h3>{{ player.username }}'s match timeline</h3>
+<h3>
+    {% trans with {'%username%': player.username} from "DivonaStandingsBundle" %}
+        partial.usergames.title
+    {% endtrans %}
+</h3>
 <table class="zebra-striped">
     <tr>
-        <th>Player</th>
-        <th>Score</th>
-        <th>Player</th>
-        <th>Date</th>
+        <th>
+            {% trans from "DivonaStandingsBundle" %}
+                partial.usergames.player1
+            {% endtrans %}
+        </th>
+        <th>
+            {% trans from "DivonaStandingsBundle" %}
+                partial.usergames.score
+            {% endtrans %}
+        </th>
+        <th>
+            {% trans from "DivonaStandingsBundle" %}
+                partial.usergames.player2
+            {% endtrans %}
+        </th>
+        <th>
+            {% trans from "DivonaStandingsBundle" %}
+                partial.usergames.date
+            {% endtrans %}
+        </th>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <th>Operations</th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.usergames.operations
+                {% endtrans %}
+            </th>
         {% endif %}
     </tr>
     {% for game in games %}
@@ -30,12 +54,24 @@
                 {% endif %}
             </a>
         </td>
-        <td>{{ game.createdAt|date('d/m/Y') }}</td>
+        <td>{{ game.createdAt|date('partial.usergames.dateformat'|trans({}, 'DivonaStandingsBundle')) }}</td>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <td><a href="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}">delete</a></td>
+            <td>
+                <a href="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}">
+                    {% trans from "DivonaStandingsBundle" %}
+                        partial.usergames.delete
+                    {% endtrans %}
+                </a>
+            </td>
         {% endif %}
     </tr>
     {% else %}
-        <tr><td colspan="9">There is no game entries.</td></tr>
+        <tr>
+            <td colspan="9">
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.usergames.noresult
+                {% endtrans %}
+            </td>
+        </tr>
     {% endfor %}
 </table>

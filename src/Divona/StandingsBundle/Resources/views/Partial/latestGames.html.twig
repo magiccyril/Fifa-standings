@@ -1,10 +1,26 @@
-<section>
-    <h3>Latest games</h3>
+<section class="span4">
+    <h3>
+        {% trans from "DivonaStandingsBundle" %}
+            partial.latestgames.title
+        {% endtrans %}
+    </h3>
     <table>
         <tr>
-            <th>Player 1</th>
-            <th>Score</th>
-            <th>Player 2</th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.latestgames.player1
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.latestgames.score
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.latestgames.player2
+                {% endtrans %}
+            </th>
         </tr>
         {% for game in latestGames %}
             <tr>
@@ -14,9 +30,19 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">There is no recent games</td>
+                <td colspan="3">
+                    {% trans from "DivonaStandingsBundle" %}
+                        partial.latestgames.noresult
+                    {% endtrans %}
+                </td>
             </tr>
         {% endfor %}
     </table>
-    <p class="center"><a href="{{ path('DivonaStandingsBundle_standings_list' ) }}">See all results</a></p>
+    <p class="center">
+        <a href="{{ path('DivonaStandingsBundle_standings_list' ) }}">
+            {% trans from "DivonaStandingsBundle" %}
+                partial.latestgames.morelink
+            {% endtrans %}
+        </a>
+    </p>
 </section>

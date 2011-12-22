@@ -1,38 +1,102 @@
 {% extends 'DivonaStandingsBundle::layout_double.html.twig' %}
 
 {% block page_header %}
-    <h1>Standings</h1>
+    <h1>
+        {% trans from "DivonaStandingsBundle" %}
+            game.standings.title
+        {% endtrans %}
+    </h1>
 {% endblock %}
 
 {% block content %}
     <ul class="tabs">
         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_week' %}active{% endif %}">
-            <a href="{{ path('DivonaStandingsBundle_standings_show_week') }}">Week</a>
+            <a href="{{ path('DivonaStandingsBundle_standings_show_week') }}">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.week
+                {% endtrans %}
+            </a>
         </li>
         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_month' %}active{% endif %}">
-            <a href="{{ path('DivonaStandingsBundle_standings_show_month') }}">Month</a>
+            <a href="{{ path('DivonaStandingsBundle_standings_show_month') }}">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.month
+                {% endtrans %}
+            </a>
         </li>
         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_year' %}active{% endif %}">
-            <a href="{{ path('DivonaStandingsBundle_standings_show_year') }}">Year</a>
+            <a href="{{ path('DivonaStandingsBundle_standings_show_year') }}">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.year
+                {% endtrans %}
+            </a>
         </li>
         <li class="{% if app.request.attributes.get('_route') == 'DivonaStandingsBundle_standings_show_all' %}active{% endif %}">
-            <a href="{{ path('DivonaStandingsBundle_standings_show_all') }}">All times</a>
+            <a href="{{ path('DivonaStandingsBundle_standings_show_all') }}">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.all
+                {% endtrans %}
+            </a>
         </li>
     </ul>
 
     <table class="zebra-striped">
         <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th><abbr title="Played">P</abbr></th>
-            <th><abbr title="Wins">W</abbr></th>
-            <th><abbr title="Draws">D</abbr></th>
-            <th><abbr title="Losses">L</abbr></th>
-            <th><abbr title="Goal scored">GS</abbr></th>
-            <th><abbr title="Goal conceded">GC</abbr></th>
-            <th><abbr title="Goal difference">GD</abbr></th>
-            <th><abbr title="Points">PTS</abbr></th>
-            <th><abbr title="Points per game">PPG</abbr></ht>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.position
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.username
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.played
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.wins
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.draws
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.lost
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.goalscored
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.goalconceded
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.goaldifference
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.points
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.pointspergame
+                {% endtrans %}
+            </th>
         </tr>
         {% for row in standing.standing %}
             <tr>
@@ -49,7 +113,13 @@
                 <td>{{row.point_per_games}}</td>
             </tr>
     {% else %}
-        <tr><td colspan="9">There is no game entries.</td></tr>
+        <tr>
+            <td colspan="9">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.standings.noresult
+                {% endtrans %}
+            </td>
+        </tr>
     {% endfor %}
     </table>
 {% endblock %}
@@ -57,7 +127,11 @@
 {% block sidebar %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <p class="clearfix center">
-            <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">Add game</a>
+            <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.add.button
+                {% endtrans %}
+            </a>
         </p>
     {% endif %}
 

@@ -1,17 +1,29 @@
 {% extends 'DivonaStandingsBundle::layout_simple.html.twig' %}
 
 {% block page_header %}
-    <h1>Are you sure ?</h1>
+    <h1>
+        {% trans from "DivonaStandingsBundle" %}
+            game.delete.title
+        {% endtrans %}
+    </h1>
 {% endblock %}
 
 {% block content %}
     <form action="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}" method="post">
         <p>
-            Are your sure you want to delete match : <em>{{ game.player1.username }} {{ game.scorePlayer1 }} - {{ game.scorePlayer2 }} {{ game.player2.username }}</em> created at {{ game.createdAt|date('d/m/Y') }} ?
+            {% trans with {
+                    '%player1username%': game.player1.username,
+                    '%scoreplayer1%': game.scorePlayer1,
+                    '%player2username%': game.player2.username,
+                    '%scoreplayer2%': game.scorePlayer2,
+                    '%createdat%': game.createdAt|date('game.delete.dateformat'|trans({}, 'DivonaStandingsBundle'))
+                } from "DivonaStandingsBundle" %}
+                game.delete.message
+            {% endtrans %}
         </p>
         <p>
-            <input type="submit" class="btn danger" value="Yes">
-            <a href="{{ path('DivonaStandingsBundle_standings_list') }}" class="btn">Cancel</a>
+            <input type="submit" class="btn danger" value="{{ 'game.delete.confirm'|trans({}, 'DivonaStandingsBundle') }}">
+            <a href="{{ path('DivonaStandingsBundle_standings_list') }}" class="btn">{{ 'game.delete.cancel'|trans({}, 'DivonaStandingsBundle') }}</a>
         </p>
     </form>
 

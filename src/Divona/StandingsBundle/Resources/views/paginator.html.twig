@@ -2,9 +2,9 @@
   <div class="pagination">
       <ul>
           {% if paginator.currentpage > 1 %}
-              <li class="prev"><a href="{{ url }}?page={{paginator.currentpage - 1}}">← Previous</a></li>
+              <li class="prev"><a href="{{ url }}?page={{paginator.currentpage - 1}}">{{ 'paginator.previsous'|trans({}, 'DivonaStandingsBundle') }}</a></li>
           {% else %}
-              <li class="prev disabled"><a>← Previous</a></li>
+              <li class="prev disabled"><a>{{ 'paginator.previsous'|trans({}, 'DivonaStandingsBundle') }}</a></li>
           {%endif %}
           {% for i in paginator.pageRange %}
               {% if (i != -1) %}
@@ -18,9 +18,9 @@
               {% endif %}
           {% endfor %}
           {% if paginator.currentpage >= paginator.numpages %}
-              <li class="next disabled"><a>Next →</a></li>
+              <li class="next disabled"><a>{{ 'paginator.next'|trans({}, 'DivonaStandingsBundle') }}</a></li>
           {% else %}
-              <li class="next"><a href="{{ url }}?page={{paginator.currentpage + 1}}">Next →</a></li>
+              <li class="next"><a href="{{ url }}?page={{paginator.currentpage + 1}}">{{ 'paginator.next'|trans({}, 'DivonaStandingsBundle') }}</a></li>
           {%endif %}
       </ul>
   </div>

@@ -1,0 +1,80 @@
+# Page
+page:
+    home:
+        title: Welcome
+    contact:
+        title: "About &amp; Contact"
+        send: Send
+
+# Paginator
+paginator:
+    previous: Previous
+    next: Next
+
+# Partials
+partial:
+    latestgames:
+        title: Latest games
+        player1:  Player
+        score: Score
+        player2: Player
+        noresult: No games recorded
+        morelink: See all games
+    standing:
+        title: "Standing <small>%granularity%</small>"
+        position: "#"
+        player: Player
+        pointpergame: PPG
+        noresult: No games recorded
+        morelink: See full standing
+    usergames:
+        title: %username%'s games
+        player1: Player
+        score: Score
+        player2: Player
+        date: Date
+        operations: Operations
+        delete: Delete
+        noresult: No games recorded
+        dateformat: m/d/Y
+
+# Game
+game:
+    add:
+        button: Add game
+        title: Add a new game
+        save: Save
+    delete:
+        title: Delete match
+        message: "Are you sure, you to delete match %player1username% %scoreplayer1%-%player2username% %scoreplayer2% created at %createdat%"
+        dateformat: m/d/Y
+        confirm: Delete
+        cancel: Cancel
+    list:
+        title: Games timeline
+        player1: Player
+        score: Score
+        player2: Player
+        date: Date
+        operations: Operations
+        dateformat: m/d/Y
+        delete: Delete
+        noresult: No games recorded
+    standings:
+        title: Standings
+        week: Week
+        month: Month
+        year: Year
+        all: All
+        position: "#"
+        username: Player
+        played: P
+        wins: W
+        draws: D
+        lost: L
+        goalscored: GS
+        goalconceded: GC
+        goaldifference: GD
+        points: PTS
+        pointspergame: PPG
+        noresult: No games recorded

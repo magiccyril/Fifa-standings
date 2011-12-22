@@ -1,18 +1,42 @@
 {% extends 'DivonaStandingsBundle::layout_double.html.twig' %}
 
 {% block page_header %}
-    <h1>Game timeline</h1>
+    <h1>
+        {% trans from "DivonaStandingsBundle" %}
+            game.list.title
+        {% endtrans %}
+    </h1>
 {% endblock %}
 
 {% block content %}
     <table class="zebra-striped">
         <tr>
-            <th>Player</th>
-            <th>Score</th>
-            <th>Player</th>
-            <th>Date</th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.list.player1
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.list.score
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.list.player2
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    game.list.date
+                {% endtrans %}
+            </th>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <th>Operations</th>
+                <th>
+                    {% trans from "DivonaStandingsBundle" %}
+                        game.list.operations
+                    {% endtrans %}
+                </th>
             {% endif %}
         </tr>
         {% for game in games %}
@@ -20,13 +44,19 @@
                 <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player1.id}) }}">{{game.player1.username}}</a></td>
                 <td>{{game.scorePlayer1}} - {{game.scorePlayer2}}</td>
                 <td><a href="{{ path('DivonaUserBundle_profile_show', { 'id': game.player2.id}) }}">{{game.player2.username}}</a></td>
-                <td>{{ game.createdAt|date('d/m/Y') }}</td>
+                <td>{{ game.createdAt|date( 'game.list.dateformat'|trans({}, 'DivonaStandingsBundle')) }}</td>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <td><a href="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}">delete</a></td>
+                    <td><a href="{{ path('DivonaStandingsBundle_standings_delete', { 'id': game.id }) }}">{{ 'game.list.delete'|trans({}, 'DivonaStandingsBundle') }}</a></td>
                 {% endif %}
             </tr>
     {% else %}
-        <tr><td colspan="9">There is no game entries.</td></tr>
+        <tr>
+            <td colspan="9">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.list.noresult
+                {% endtrans %}
+            </td>
+        </tr>
     {% endfor %}
     </table>
 
@@ -36,7 +66,11 @@
 {% block sidebar %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <p class="clearfix center">
-            <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">Add game</a>
+            <a href="{{ path('DivonaStandingsBundle_standings_add_game') }}" class="btn large primary">
+                {% trans from "DivonaStandingsBundle" %}
+                    game.add.button
+                {% endtrans %}
+            </a>
         </p>
     {% endif %}
 

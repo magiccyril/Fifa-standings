@@ -2,7 +2,11 @@
 {% form_theme form 'DivonaStandingsBundle:Form:fields.html.twig' %}
 
 {% block page_header %}
-    <h1>Add game</h1>
+    <h1>
+        {% trans from "DivonaStandingsBundle" %}
+            game.add.title
+        {% endtrans %}
+    </h1>
 {% endblock %}
 
 {% block content %}
@@ -20,7 +24,7 @@
         </fieldset>
 
         <div class="actions">
-            <input type="submit" class="btn primary" value="Save">
+            <input type="submit" class="btn primary" value="{{ 'game.add.save'|trans({}, 'DivonaStandingsBundle') }}">
         </div>
     </form>
 

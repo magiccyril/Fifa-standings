@@ -2,7 +2,11 @@
 {% form_theme form 'DivonaStandingsBundle:Form:fields.html.twig' %}
 
 {% block page_header %}
-    <h1>About &amp; Contact</h1>
+    <h1>
+        {% trans from "DivonaStandingsBundle" %}
+            page.contact.title
+        {% endtrans %}
+    </h1>
 {% endblock %}
 
 {% block content %}
@@ -36,7 +40,7 @@
             </fieldset>
 
             <div class="actions">
-                <input type="submit" class="btn primary" value="Send">
+                <input type="submit" class="btn primary" value="{{ 'page.contact.send'|trans({}, 'DivonaStandingsBundle') }}">
             </div>
         </form>
     </div>

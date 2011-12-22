@@ -1,10 +1,26 @@
 <section>
-    <h3>Standing <small>({{ granularity }})</small></h3>
+    <h3>
+        {% trans with {'%granularity%': granularity} from "DivonaStandingsBundle" %}
+            partial.standing.title
+        {% endtrans %}
+    </h3>
     <table>
         <tr>
-            <th>#</th>
-            <th>Player</th>
-            <th><abbr title="Points per Game">PPG</abbr></th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.standing.position
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.standing.player
+                {% endtrans %}
+            </th>
+            <th>
+                {% trans from "DivonaStandingsBundle" %}
+                    partial.standing.pointpergame
+                {% endtrans %}
+            </th>
         </tr>
         {% for row in standing.standing %}
             <tr>
@@ -14,9 +30,19 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">There is no games recorded.</td>
+                <td colspan="3">
+                    {% trans from "DivonaStandingsBundle" %}
+                        partial.standing.noresult
+                    {% endtrans %}
+                </td>
             </tr>
         {% endfor %}
     </table>
-    <p class="center"><a href="{{ path('DivonaStandingsBundle_standings_show' ) }}">See full standing</a></p>
+    <p class="center">
+        <a href="{{ path('DivonaStandingsBundle_standings_show' ) }}">
+            {% trans from "DivonaStandingsBundle" %}
+                partial.standing.morelink
+            {% endtrans %}
+        </a>
+    </p>
 </section>
