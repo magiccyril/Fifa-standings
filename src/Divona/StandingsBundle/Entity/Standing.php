@@ -184,8 +184,8 @@ class Standing
             $index = 0;
         }
 
-        if ($index > $this->standing->count()) {
-            $index = $this->standing->count() - 1;
+        if ($index >= $this->standing->count()) {
+            return FALSE;
         }
 
         $values = $this->standing->getValues();
