@@ -37,6 +37,14 @@ partial:
         delete: Delete
         noresult: No games recorded
         dateformat: m/d/Y
+    bestPlayer:
+        played: %played% game(s) played
+        win: <abbr title="win(s)">W</abbr> %win%
+        draw: <abbr title="draw(s)">D</abbr> %draw%
+        lost: <abbr title="lost(s)">L</abbr> %lost%
+        goal_scored: <abbr title="goal scored(s)">GS</abbr> %goal_scored%
+        goal_conceded: <abbr title="goal(s) conceded">GC</abbr> %goal_conceded%
+        goal_difference: <abbr title="goal difference">GD</abbr> %goal_difference%
 
 # Game
 game:
