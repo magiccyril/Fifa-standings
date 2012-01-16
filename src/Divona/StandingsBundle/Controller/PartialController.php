@@ -55,12 +55,13 @@ class PartialController extends Controller
             }
 
         $em = $this->getDoctrine()->getEntityManager();
-        $best = $em->getRepository('DivonaStandingsBundle:Game')->getBestPlayer($granularity);
-        $player = $best['player'];
+        $standing = $em->getRepository('DivonaStandingsBundle:Game')->getBestPlayer($granularity);
+        $player = $standing['player'];
 
         return $this->render('DivonaStandingsBundle:Partial:bestPlayer.html.twig', array(
             'granularity' => $granularity,
             'player' => $player,
+            'standing' => $standing,
         ));
     }
 }
