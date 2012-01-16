@@ -1,4 +1,39 @@
-<section class="span4">
-    <h3>Best Player of this {{ granularity }}</h3>
-    <p><strong>{{ player.username }}</strong></p>
-</section>
+{% if player and standing %}
+    <section class="span4">
+        <h3>Best Player of this {{ granularity }}</h3>
+        <ul>
+            <li><strong>{{ player.username }}</strong></li>
+            <li>
+                {% trans with {'%played%': standing.played} from "DivonaStandingsBundle" %}
+                    partial.bestPlayer.played
+                {% endtrans %}
+            </li>
+            <li>
+                {% trans with { '%win%': standing.win } from "DivonaStandingsBundle" %}
+                    partial.bestPlayer.win
+                {% endtrans %}
+                /
+                {% trans with { '%draw%': standing.draw } from "DivonaStandingsBundle" %}
+                    partial.bestPlayer.draw
+                {% endtrans %}
+                /
+                {% trans with { '%lost%': standing.lost } from "DivonaStandingsBundle" %}
+                    partial.bestPlayer.lost
+                {% endtrans %}
+            </li>
+            <li>
+                {% trans with { '%goal_scored%': standing.goal_scored } from "DivonaStandingsBundle" %}
+                    partial.bestPlayer.goal_scored
+                {% endtrans %}
+                /
+                {% trans with {'%goal_conceded%': standing.goal_conceded } from "DivonaStandingsBundle" %}
+                    partial.bestPlayer.goal_conceded
+                {% endtrans %}
+                /
+                {% trans with { '%goal_difference%': standing.goal_difference } from "DivonaStandingsBundle" %}
+                    partial.bestPlayer.goal_difference
+                {% endtrans %}
+            </li>
+        </ul>
+    </section>
+{% endif %}
