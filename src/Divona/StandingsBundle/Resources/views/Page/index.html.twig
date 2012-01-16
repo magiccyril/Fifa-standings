@@ -17,9 +17,9 @@
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
     <div class="row">
-        {% render "DivonaStandingsBundle:Partial:bestPlayer" with { 'granularity': 'year' } %}
-        {% render "DivonaStandingsBundle:Partial:bestPlayer" with { 'granularity': 'month' } %}
         {% render "DivonaStandingsBundle:Partial:bestPlayer" with { 'granularity': 'week' } %}
+        {% render "DivonaStandingsBundle:Partial:bestPlayer" with { 'granularity': 'month' } %}
+        {% render "DivonaStandingsBundle:Partial:bestPlayer" with { 'granularity': 'year' } %}
     </div>
 
 {% endblock %}
