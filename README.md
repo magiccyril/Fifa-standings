@@ -55,7 +55,9 @@ it !
 
 Then, you have to do some simple configuration. Run the following:
 
+``` bash
     cp app/config/parameters.ini.dist app/config/parameters.ini
+```
 
 And change values according to your database and your mailling system.
 
