@@ -86,7 +86,7 @@ And change values according to your database and your mailling system.
 
 ### d) Create database
 
-Final step: you have to create the database and the schema. Hopefully Symfony
+Final step: you have to create the database and the schema. Fortunately Symfony
 will help you to do this. Run the following:
 
 ``` bash
