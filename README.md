@@ -1,45 +1,31 @@
-Symfony Standard Edition
+Fifa Standings
 ========================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony2
-application that you can use as the skeleton for your new app. If you want
-to learn more about the features included, see the "What's Inside?" section.
+Simple standings system for the Fifa video game.
 
-This document contains information on how to download and start using Symfony.
-For a more detailed explanation, see the
-[Installation chapter](http://symfony.com/doc/current/book/installation.html)
-of the Symfony Documentation.
-
-1) Download the Standard Edition
+1) Download
 --------------------------------
-
-If you've already downloaded the standard edition, and unpacked it somewhere
-within your web root directory, then move on to the "Installation" section.
-
-To download the standard edition, you have two options:
-
-### Download an archive file (*recommended*)
-
-The easiest way to get started is to download an archive of the standard edition
-(http://symfony.com/download). Unpack it somewhere under your web server root
-directory and you're done. The web root is wherever your web server (e.g. Apache)
-looks when you access `http://localhost` in a browser.
 
 ### Clone the git Repository
 
-We highly recommend that you download the packaged version of this distribution.
-But if you still want to use Git, you are on your own.
+If you want to use Git, run the following commands:
 
-Run the following commands:
+``` bash
+    git clone http://github.com/magiccyril/Fifa-standings.git
+```
 
-    git clone http://github.com/symfony/symfony-standard.git
-    cd symfony-standard
-    rm -rf .git
+### Download an archive file
+
+Download an archive
+(http://github.com/magiccyril/Fifa-standings/zipball/master).
+Unpack it somewhere under your web server root directory and you're done.
+The web root is wherever your web server (e.g. Apache) looks when you
+access `http://localhost` in a browser.
 
 2) Installation
 ---------------
 
-Once you've downloaded the standard edition, installation is easy, and basically
+Once you've downloaded it, installation is easy, and basically
 involves making sure your system is ready for Symfony.
 
 ### a) Check your System Configuration
@@ -47,102 +33,76 @@ involves making sure your system is ready for Symfony.
 Before you begin, make sure that your local system is properly configured
 for Symfony. To do this, execute the following:
 
+``` bash
     php app/check.php
+```
 
 If you get any warnings or recommendations, fix these now before moving on.
 
 ### b) Install the Vendor Libraries
 
-If you downloaded the archive "without vendors" or installed via git, then
-you need to download all of the necessary vendor libraries. If you're not
-sure if you need to do this, check to see if you have a ``vendor/`` directory.
-If you don't, or if that directory is empty, run the following:
+You need to download all of the necessary vendor libraries. Run the following:
 
+``` bash
     php bin/vendors install
+```
 
 Note that you **must** have git installed and be able to execute the `git`
-command to execute this script. If you don't have git available, either install
-it or download Symfony with the vendor libraries already included.
+command to execute this script. If you don't have git available, install
+it !
 
-### c) Access the Application via the Browser
+### c) Configuration
 
-Congratulations! You're now ready to use Symfony. If you've unzipped Symfony
-in the web root of your computer, then you should be able to access the
-web version of the Symfony requirements check via:
+Then, you have to do some simple configuration. Run the following:
 
-    http://localhost/Symfony/web/config.php
+    cp app/config/parameters.ini.dist app/config/parameters.ini
 
-If everything looks good, click the "Bypass configuration and go to the Welcome page"
-link to load up your first Symfony page.
+And change values according to your database and your mailling system.
 
-You can also use a web-based configurator by clicking on the "Configure your
-Symfony Application online" link of the ``config.php`` page.
+``` ini
+; app/config/parameters.ini
+; These parameters can be imported into other config files
+; by enclosing the key with % (like %database_user%)
+; Comments start with ';', as in php.ini
+[parameters]
+    database_driver   = pdo_mysql
+    database_host     = localhost
+    database_port     =
+    database_name     = symfony
+    database_user     = root
+    database_password =
 
-To see a real-live Symfony page in action, access the following page:
+    mailer_transport  = smtp
+    mailer_host       = localhost
+    mailer_user       =
+    mailer_password   =
 
-    web/app_dev.php/demo/hello/Fabien
+    locale            = en
 
-3) Learn about Symfony!
------------------------
+    secret            = ThisTokenIsNotSoSecretChangeIt
+```
 
-This distribution is meant to be the starting point for your application,
-but it also contains some sample code that you can learn from and play with.
+### d) Create database
 
-A great way to start learning Symfony is via the [Quick Tour](http://symfony.com/doc/current/quick_tour/the_big_picture.html),
-which will take you through all the basic features of Symfony2 and the test
-pages that are available in the standard edition.
+Final step: you have to create the database and the schema. Hopefully Symfony
+will help you to do this. Run the following:
 
-Once you're feeling good, you can move onto reading the official
-[Symfony2 book](http://symfony.com/doc/current/).
+``` bash
+    php bin/console doctrine:database:create
+    php bin/console doctrine:schema:create
+```
 
-Using this Edition as the Base of your Application
---------------------------------------------------
+### e) That's all folks !
 
-Since the standard edition is fully-configured and comes with some examples,
-you'll need to make a few changes before using it to build your application.
-
-The distribution is configured with the following defaults:
-
-* Twig is the only configured template engine;
-* Doctrine ORM/DBAL is configured;
-* Swiftmailer is configured;
-* Annotations for everything are enabled.
-
-A default bundle, ``AcmeDemoBundle``, shows you Symfony2 in action. After
-playing with it, you can remove it by following these steps:
-
-* delete the ``src/Acme`` directory;
-* remove the routing entries referencing AcmeBundle in ``app/config/routing_dev.yml``;
-* remove the AcmeBundle from the registered bundles in ``app/AppKernel.php``;
-
+Configure your web server, and congratulations! You're now ready to use Fifa Standings.
 
 What's inside?
 ---------------
-The Symfony Standard Edition comes pre-configured with the following bundles:
-	
-* **FrameworkBundle** - The core Symfony framework bundle
-* **SensioFrameworkExtraBundle** - Adds several enhancements, including template
-  and routing annotation capability ([documentation](http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html))
-* **DoctrineBundle** - Adds support for the Doctrine ORM
-  ([documentation](http://symfony.com/doc/current/book/doctrine.html))
-* **TwigBundle** - Adds support for the Twig templating engine
-  ([documentation](http://symfony.com/doc/current/book/templating.html))
-* **SecurityBundle** - Adds security by integrating Symfony's security component
-  ([documentation](http://symfony.com/doc/current/book/security.html))
-* **SwiftmailerBundle** - Adds support for Swiftmailer, a library for sending emails
-  ([documentation](http://symfony.com/doc/2.0/cookbook/email.html))
-* **MonologBundle** - Adds support for Monolog, a logging library
-  ([documentation](http://symfony.com/doc/2.0/cookbook/logging/monolog.html))
-* **AsseticBundle** - Adds support for Assetic, an asset processing library
-  ([documentation](http://symfony.com/doc/2.0/cookbook/assetic/asset_management.html))
-* **JMSSecurityExtraBundle** - Allows security to be added via annotations
-  ([documentation](http://symfony.com/doc/current/bundles/JMSSecurityExtraBundle/index.html))
-* **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-  the web debug toolbar
-* **SensioDistributionBundle** (in dev/test env) - Adds functionality for configuring
-  and working with Symfony distributions
-* **SensioGeneratorBundle** (in dev/test env) - Adds code generation capabilities
-  ([documentation](http://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html))
-* **AcmeDemoBundle** (in dev/test env) - A demo bundle with some example code
+Fifa Standings is built with:
+
+* **Symfony** - The core framework ([documentation](http://symfony.com/doc/current/))
+* **Twitter Bootstrap** - Frontend toolkit. ([documentation](http://twitter.github.com/bootstrap/))
+* **jQuery** - Adds some frontend enhancement and animation.
+  ([documentation](http://docs.jquery.com/Main_Page))
 
 Enjoy!
